@@ -1,0 +1,5 @@
+{
+  "ext": "go",
+  "signal": "SIGTERM",
+  "exec": "commands/testing/gotest.sh || exit 1"
+}

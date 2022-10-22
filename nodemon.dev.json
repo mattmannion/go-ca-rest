@@ -1,0 +1,5 @@
+{
+  "ext": "go",
+  "signal": "SIGTERM",
+  "exec": "commands/core/gorun.sh || exit 1"
+}
