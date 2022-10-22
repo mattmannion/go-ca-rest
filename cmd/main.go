@@ -2,10 +2,18 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"net/http"
 
-	"_/cmd/src/thing"
+	"github.com/gorilla/mux"
 )
 
 func main() {
-	fmt.Println(thing.Add(1, thing.Num))
+	r := mux.NewRouter()
+
+	r.HandleFunc("/", GetPosts).Methods(http.MethodGet)
+	r.HandleFunc("/", PostPost).Methods(http.MethodPost)
+
+	fmt.Println("server live")
+	log.Fatalln(http.ListenAndServe(":7890", r))
 }
