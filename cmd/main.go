@@ -1,19 +1,20 @@
 package main
 
 import (
-	"fmt"
-	"log"
-	"net/http"
-
-	"github.com/gorilla/mux"
+	"_/cmd/src/controller"
+	"_/cmd/src/repo"
+	"_/cmd/src/router"
+	"_/cmd/src/service"
 )
 
+var pr repo.PostRepo = repo.NewFirestoreRepo()
+var ps service.PostService = service.NewPostService(pr)
+var pc controller.PostController = controller.NewPostController(ps)
+var r router.Router = router.NewMuxRouter()
+
 func main() {
-	r := mux.NewRouter()
+	r.Get("/", pc.GetPosts)
+	r.Post("/", pc.PostPost)
 
-	r.HandleFunc("/", GetPosts).Methods(http.MethodGet)
-	r.HandleFunc("/", PostPost).Methods(http.MethodPost)
-
-	fmt.Println("server live")
-	log.Fatalln(http.ListenAndServe(":7890", r))
+	r.Serve(":7890")
 }

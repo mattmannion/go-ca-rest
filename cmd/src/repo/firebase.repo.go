@@ -9,29 +9,24 @@ import (
 	"google.golang.org/api/option"
 )
 
-type PostRepo interface {
-	Save(post *model.Post) (model.Post, error)
-	FindAll() ([]model.Post, error)
-}
-
 // repo constructor
 type repo struct{}
 
-func NewPostRepo() PostRepo {
+func NewFirestoreRepo() PostRepo {
 	return &repo{}
 }
 
 const pn = "go-ca-e59c4"
 const cn = "posts"
 
-func (*repo) Save(post *model.Post) (model.Post, error) {
+func (*repo) Save(post *model.Post) (*model.Post, error) {
 	ctx := context.Background()
 	opt := option.WithCredentialsFile("./firebase.json")
 	client, err := firestore.NewClient(ctx, pn, opt)
 
 	if err != nil {
 		log.Fatalln("Failed to create firestore...")
-		return model.Post{}, err
+		return &model.Post{}, err
 	}
 
 	defer client.Close()
@@ -44,10 +39,10 @@ func (*repo) Save(post *model.Post) (model.Post, error) {
 
 	if err != nil {
 		log.Fatalln("Failed to create firestore...")
-		return model.Post{}, err
+		return &model.Post{}, err
 	}
 
-	return *post, nil
+	return post, nil
 }
 
 func (*repo) FindAll() ([]model.Post, error) {
