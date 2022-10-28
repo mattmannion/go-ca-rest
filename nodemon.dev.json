@@ -1,7 +1,7 @@
 {
   "ext": "go",
   "signal": "SIGTERM",
-  "exec": "commands/core/gobuildrun.sh || exit 1",
+  "exec": "commands/core/gorun.sh || exit 1",
   "events": {
     "start": "clear"
   }
