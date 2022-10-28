@@ -2,27 +2,28 @@ package service
 
 import (
 	"_/cmd/src/model"
-	"_/cmd/src/repo"
+	"_/cmd/src/repo/types"
 	"errors"
 	"math/rand"
 )
 
-var posts_repo repo.PostRepo
-
-type PostService interface {
+type IPostService interface {
 	Validate(post *model.Post) error
 	Create(post *model.Post) (*model.Post, error)
 	FindAll() ([]model.Post, error)
 }
 
-type service struct{}
-
-func NewPostService(pr repo.PostRepo) PostService {
-	posts_repo = pr
-	return &service{}
+type PostService struct {
+	PostRepo types.IPostRepo
 }
 
-func (*service) Validate(post *model.Post) error {
+func NewPostService(PostRepo types.IPostRepo) IPostService {
+	return &PostService{
+		PostRepo: PostRepo,
+	}
+}
+
+func (*PostService) Validate(post *model.Post) error {
 	if post == nil {
 		return errors.New("no Posts")
 	}
@@ -38,12 +39,11 @@ func (*service) Validate(post *model.Post) error {
 	return nil
 }
 
-func (*service) Create(post *model.Post) (*model.Post, error) {
+func (s *PostService) Create(post *model.Post) (*model.Post, error) {
 	post.Id = rand.Int()
-	return posts_repo.Save(post)
-
+	return s.PostRepo.Save(post)
 }
 
-func (*service) FindAll() ([]model.Post, error) {
-	return posts_repo.FindAll()
+func (s *PostService) FindAll() ([]model.Post, error) {
+	return s.PostRepo.FindAll()
 }

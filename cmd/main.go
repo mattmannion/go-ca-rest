@@ -9,20 +9,23 @@ import (
 	"net/http"
 )
 
-var pr repo.PostRepo = repo.NewFirestoreRepo()
-var ps service.PostService = service.NewPostService(pr)
-var pc controller.PostController = controller.NewPostController(ps)
-var r router.Router = router.NewMuxRouter()
+var (
+	RepoLayer  = repo.NewRepoLayer()
+	Services   = service.NewServiceLayer(service.Deps{PostRepo: RepoLayer.PostRepo})
+	Contollers = controller.NewControllerLayer(controller.Deps{ServiceLayer: *Services})
+	Router     = router.NewMuxRouter()
+)
 
 func main() {
-	r.Get("/hello", func(resp http.ResponseWriter, req *http.Request) {
+	Router.Get("/hello", func(resp http.ResponseWriter, req *http.Request) {
 		resp.Header().Set("Content-type", "application-json")
 
 		resp.WriteHeader(http.StatusOK)
 		json.NewEncoder(resp).Encode(map[string]string{"message": "hello"})
 	})
-	r.Get("/", pc.GetPosts)
-	r.Post("/", pc.PostPost)
 
-	r.Serve(":7890")
+	Router.Get("/", Contollers.PostController.GetPosts)
+	Router.Post("/", Contollers.PostController.PostPost)
+
+	Router.Serve(":7890")
 }

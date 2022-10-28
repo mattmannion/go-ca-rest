@@ -9,24 +9,25 @@ import (
 	"_/cmd/src/service"
 )
 
-var post_service service.PostService
-
-type PostController interface {
+type IPostController interface {
 	GetPosts(resp http.ResponseWriter, req *http.Request)
 	PostPost(resp http.ResponseWriter, req *http.Request)
 }
 
-type controller struct{}
-
-func NewPostController(svc service.PostService) PostController {
-	post_service = svc
-	return &controller{}
+type controller struct {
+	PostService service.IPostService
 }
 
-func (*controller) GetPosts(resp http.ResponseWriter, req *http.Request) {
+func NewPostController(PostService service.IPostService) IPostController {
+	return &controller{
+		PostService: PostService,
+	}
+}
+
+func (c *controller) GetPosts(resp http.ResponseWriter, req *http.Request) {
 	resp.Header().Set("Content-type", "application/json")
 
-	posts, err := post_service.FindAll()
+	posts, err := c.PostService.FindAll()
 	if err != nil {
 		resp.WriteHeader(http.StatusInternalServerError)
 		resp.Write([]byte(fmt.Sprint(err)))
@@ -37,7 +38,7 @@ func (*controller) GetPosts(resp http.ResponseWriter, req *http.Request) {
 	json.NewEncoder(resp).Encode(posts)
 }
 
-func (*controller) PostPost(resp http.ResponseWriter, req *http.Request) {
+func (c *controller) PostPost(resp http.ResponseWriter, req *http.Request) {
 	resp.Header().Set("Content-type", "application/json")
 
 	post := &model.Post{}
@@ -49,14 +50,14 @@ func (*controller) PostPost(resp http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	err = post_service.Validate(post)
+	err = c.PostService.Validate(post)
 	if err != nil {
 		resp.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(resp).Encode(map[string]string{"error": fmt.Sprint(err)})
 		return
 	}
 
-	res, err := post_service.Create(post)
+	res, err := c.PostService.Create(post)
 	if err != nil {
 		resp.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(resp).Encode(map[string]string{"error": fmt.Sprint(err)})
