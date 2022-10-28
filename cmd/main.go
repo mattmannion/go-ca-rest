@@ -1,6 +1,7 @@
 package main
 
 import (
+	"_/cmd/clients"
 	"_/cmd/src/controller"
 	"_/cmd/src/repo"
 	"_/cmd/src/router"
@@ -10,8 +11,9 @@ import (
 )
 
 var (
-	RepoLayer  = repo.NewRepoLayer()
-	Services   = service.NewServiceLayer(service.Deps{PostRepo: RepoLayer.PostRepo})
+	// RepoLayer = repo.NewRepoLayer()
+	RepoLayer  = repo.NewRepoLayer(repo.Deps{DataBase: clients.Firestore})
+	Services   = service.NewServiceLayer(service.Deps{RepoLayer: *RepoLayer})
 	Contollers = controller.NewControllerLayer(controller.Deps{ServiceLayer: *Services})
 	Router     = router.NewMuxRouter()
 )

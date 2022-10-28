@@ -1,18 +1,19 @@
 package service
 
-import "_/cmd/src/repo/types"
+import (
+	"_/cmd/src/repo"
+	"_/cmd/src/service/post_service"
+	"_/cmd/src/service/service_types"
+)
 
 type Deps struct {
-	PostRepo types.IPostRepo
+	RepoLayer repo.RepoLayer
 }
 
-type ServiceLayer struct {
-	PostService IPostService
-}
+type ServiceLayer struct{ PostService service_types.IPostService }
 
-// This is a collection of all the services
-func NewServiceLayer(dep Deps) *ServiceLayer {
+func NewServiceLayer(deps Deps) *ServiceLayer {
 	return &ServiceLayer{
-		PostService: NewPostService(dep.PostRepo),
+		PostService: post_service.NewPostService(deps.RepoLayer.PostRepo),
 	}
 }

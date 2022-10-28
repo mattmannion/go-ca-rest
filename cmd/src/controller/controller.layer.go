@@ -1,18 +1,19 @@
 package controller
 
-import "_/cmd/src/service"
+import (
+	"_/cmd/src/controller/controller_types"
+	"_/cmd/src/controller/post_controller"
+	"_/cmd/src/service"
+)
 
-type Deps struct {
-	ServiceLayer service.ServiceLayer
-}
+type Deps struct{ ServiceLayer service.ServiceLayer }
 
 type ControllerLayer struct {
-	PostController IPostController
+	PostController controller_types.IPostController
 }
 
-// This is a collection of all the controllers
 func NewControllerLayer(dep Deps) *ControllerLayer {
 	return &ControllerLayer{
-		PostController: NewPostController(dep.ServiceLayer.PostService),
+		PostController: post_controller.NewPostController(dep.ServiceLayer.PostService),
 	}
 }
