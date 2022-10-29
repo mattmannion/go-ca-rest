@@ -1,8 +1,8 @@
 package service
 
 import (
-	"_/cmd/src/repo"
-	"_/cmd/src/service/post_service"
+	"_/cmd/api/repo"
+	"_/cmd/api/service/post_service"
 	"_/cmd/types/service_types"
 )
 

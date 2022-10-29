@@ -7,8 +7,8 @@ import (
 
 type IPostService interface {
 	Validate(post *models.Post) error
-	Create(post *models.Post) (*models.Post, error)
 	FindAll() ([]models.Post, error)
+	Create(post *models.Post) (*models.Post, error)
 }
 
 type INewPostService interface {

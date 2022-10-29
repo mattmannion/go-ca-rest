@@ -21,8 +21,7 @@ func (c *PostController) GetPosts(resp http.ResponseWriter, req *http.Request) {
 	posts, err := c.PostService.FindAll()
 	if err != nil {
 		resp.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(resp).Encode(map[string]string{"error": "Could not find Posts..."})
-		// json.NewEncoder(resp).Encode(map[string]string{"error": fmt.Sprint(err)})
+		json.NewEncoder(resp).Encode(map[string]string{"error": "Could not find Posts"})
 		return
 	}
 
@@ -35,19 +34,19 @@ func (c *PostController) PostPost(resp http.ResponseWriter, req *http.Request) {
 
 	post := &models.Post{}
 
-	err := json.NewDecoder(req.Body).Decode(&post)
-	if err != nil {
-		resp.WriteHeader(http.StatusInternalServerError)
-		resp.Write([]byte(fmt.Sprint(err)))
-		return
-	}
+	// err := json.NewDecoder(req.Body).Decode(&post)
+	// if err != nil {
+	// 	resp.WriteHeader(http.StatusInternalServerError)
+	// 	json.NewEncoder(resp).Encode(map[string]string{"error": "No request body"})
+	// 	return
+	// }
 
-	err = c.PostService.Validate(post)
-	if err != nil {
-		resp.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(resp).Encode(map[string]string{"error": fmt.Sprint(err)})
-		return
-	}
+	// err = c.PostService.Validate(post)
+	// if err != nil {
+	// 	resp.WriteHeader(http.StatusInternalServerError)
+	// 	json.NewEncoder(resp).Encode(map[string]string{"error": fmt.Sprint(err)})
+	// 	return
+	// }
 
 	res, err := c.PostService.Create(post)
 	if err != nil {

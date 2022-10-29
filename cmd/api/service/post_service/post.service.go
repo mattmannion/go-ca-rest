@@ -30,11 +30,11 @@ func (*PostService) Validate(post *models.Post) error {
 	return nil
 }
 
+func (s *PostService) FindAll() ([]models.Post, error) {
+	return s.PostRepo.FindAll()
+}
+
 func (s *PostService) Create(post *models.Post) (*models.Post, error) {
 	post.Id = rand.Int()
 	return s.PostRepo.Save(post)
-}
-
-func (s *PostService) FindAll() ([]models.Post, error) {
-	return s.PostRepo.FindAll()
 }

@@ -2,7 +2,6 @@
   "scripts": {
     "d": "nodemon --config nodemon.dev.json",
     "t": "nodemon --config nodemon.test.json",
-    "tc": "nodemon --config nodemon.testcoverage.json",
     "b": "commands/core/gobuild.sh",
     "r": "commands/core/gobuildrun.sh"
   }

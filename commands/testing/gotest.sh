@@ -1,5 +1,6 @@
 #!/bin/bash
 
-cd cmd/src 
+cd cmd/api 
 
-go test ./... -v -coverpkg=./... -covermode=count
+go test ./... -coverpkg=./... -coverprofile=../../coverage/coverage.out &&
+go tool cover -func ../../coverage/coverage.out 

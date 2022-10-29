@@ -1,8 +1,8 @@
 package controller
 
 import (
-	"_/cmd/src/controller/post_controller"
-	"_/cmd/src/service"
+	"_/cmd/api/controller/post_controller"
+	"_/cmd/api/service"
 	"_/cmd/types/controller_types"
 )
 
