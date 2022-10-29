@@ -1,13 +1,12 @@
 package post_controller
 
 import (
+	"_/cmd/models"
+	"_/cmd/types/controller_types"
+	"_/cmd/types/service_types"
 	"encoding/json"
 	"fmt"
 	"net/http"
-
-	"_/cmd/src/controller/controller_types"
-	"_/cmd/src/models"
-	"_/cmd/src/service/service_types"
 )
 
 type PostController struct{ PostService service_types.IPostService }

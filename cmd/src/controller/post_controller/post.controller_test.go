@@ -2,7 +2,7 @@ package post_controller
 
 import (
 	"_/cmd/mocks/mock_services"
-	"_/cmd/src/models"
+	"_/cmd/models"
 	"_/cmd/src/service/post_service"
 	"errors"
 	"net/http"

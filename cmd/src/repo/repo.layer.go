@@ -1,8 +1,6 @@
 package repo
 
-import (
-	"_/cmd/src/repo/repo_types"
-)
+import "_/cmd/types/repo_types"
 
 type Deps struct{ DataBase repo_types.IPostRepo }
 

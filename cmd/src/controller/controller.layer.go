@@ -1,9 +1,9 @@
 package controller
 
 import (
-	"_/cmd/src/controller/controller_types"
 	"_/cmd/src/controller/post_controller"
 	"_/cmd/src/service"
+	"_/cmd/types/controller_types"
 )
 
 type Deps struct{ ServiceLayer service.ServiceLayer }

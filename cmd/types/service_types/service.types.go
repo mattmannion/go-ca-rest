@@ -1,8 +1,8 @@
 package service_types
 
 import (
-	"_/cmd/src/models"
-	"_/cmd/src/repo/repo_types"
+	"_/cmd/models"
+	"_/cmd/types/repo_types"
 )
 
 type IPostService interface {

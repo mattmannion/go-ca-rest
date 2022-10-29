@@ -1,8 +1,8 @@
 package firestore_repo
 
 import (
-	"_/cmd/src/models"
-	"_/cmd/src/repo/repo_types"
+	"_/cmd/models"
+	"_/cmd/types/repo_types"
 	"context"
 	"log"
 
