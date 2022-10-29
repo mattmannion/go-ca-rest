@@ -10,19 +10,20 @@ import (
 	"_/cmd/src/service/service_types"
 )
 
-type controller struct{ PostService service_types.IPostService }
+type PostController struct{ PostService service_types.IPostService }
 
 func NewPostController(PostService service_types.IPostService) controller_types.IPostController {
-	return &controller{PostService: PostService}
+	return &PostController{PostService: PostService}
 }
 
-func (c *controller) GetPosts(resp http.ResponseWriter, req *http.Request) {
+func (c *PostController) GetPosts(resp http.ResponseWriter, req *http.Request) {
 	resp.Header().Set("Content-type", "application/json")
 
 	posts, err := c.PostService.FindAll()
 	if err != nil {
 		resp.WriteHeader(http.StatusInternalServerError)
-		resp.Write([]byte(fmt.Sprint(err)))
+		json.NewEncoder(resp).Encode(map[string]string{"error": "Could not find Posts..."})
+		// json.NewEncoder(resp).Encode(map[string]string{"error": fmt.Sprint(err)})
 		return
 	}
 
@@ -30,7 +31,7 @@ func (c *controller) GetPosts(resp http.ResponseWriter, req *http.Request) {
 	json.NewEncoder(resp).Encode(posts)
 }
 
-func (c *controller) PostPost(resp http.ResponseWriter, req *http.Request) {
+func (c *PostController) PostPost(resp http.ResponseWriter, req *http.Request) {
 	resp.Header().Set("Content-type", "application/json")
 
 	post := &models.Post{}
