@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd cmd
+cd src
 go build -o server . 
 ./server
   

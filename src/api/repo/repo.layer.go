@@ -1,8 +1,8 @@
 package repo
 
 import (
-	"_/cmd/api/repo/firestore_repo"
-	"_/cmd/types/repo_types"
+	"_/src/api/repo/firestore_repo"
+	"_/src/types/repo_types"
 )
 
 // type Deps struct{ DataBase repo_types.IPostRepo }

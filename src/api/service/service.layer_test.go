@@ -1,7 +1,7 @@
 package service
 
 import (
-	"_/cmd/api/repo"
+	"_/src/api/repo"
 	"testing"
 
 	"github.com/stretchr/testify/assert"

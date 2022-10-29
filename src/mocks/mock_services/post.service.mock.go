@@ -1,7 +1,7 @@
 package mock_services
 
 import (
-	"_/cmd/models"
+	"_/src/models"
 
 	"github.com/stretchr/testify/mock"
 )

@@ -1,10 +1,10 @@
 package post_controller
 
 import (
-	"_/cmd/api/service/post_service"
-	"_/cmd/constants"
-	"_/cmd/mocks/mock_services"
-	"_/cmd/models"
+	"_/src/api/service/post_service"
+	"_/src/constants"
+	"_/src/mocks/mock_services"
+	"_/src/models"
 	"bytes"
 	"encoding/json"
 	"errors"

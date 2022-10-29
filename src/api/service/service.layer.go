@@ -1,9 +1,9 @@
 package service
 
 import (
-	"_/cmd/api/repo"
-	"_/cmd/api/service/post_service"
-	"_/cmd/types/service_types"
+	"_/src/api/repo"
+	"_/src/api/service/post_service"
+	"_/src/types/service_types"
 )
 
 type Deps struct {

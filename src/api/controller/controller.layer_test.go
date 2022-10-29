@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"_/cmd/api/service"
+	"_/src/api/service"
 	"testing"
 
 	"github.com/stretchr/testify/assert"

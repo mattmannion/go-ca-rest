@@ -1,9 +1,9 @@
 package post_controller
 
 import (
-	"_/cmd/models"
-	"_/cmd/types/controller_types"
-	"_/cmd/types/service_types"
+	"_/src/models"
+	"_/src/types/controller_types"
+	"_/src/types/service_types"
 	"encoding/json"
 	"fmt"
 	"net/http"

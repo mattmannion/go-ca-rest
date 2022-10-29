@@ -1,9 +1,9 @@
 package post_service
 
 import (
-	"_/cmd/models"
-	"_/cmd/types/repo_types"
-	"_/cmd/types/service_types"
+	"_/src/models"
+	"_/src/types/repo_types"
+	"_/src/types/service_types"
 	"errors"
 	"math/rand"
 )

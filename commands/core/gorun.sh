@@ -1,4 +1,4 @@
 #!/bin/bash
 
-cd cmd 
+cd src 
 go run .

@@ -1,6 +1,6 @@
 package repo_types
 
-import "_/cmd/models"
+import "_/src/models"
 
 type IPostRepo interface {
 	Save(post *models.Post) (*models.Post, error)
