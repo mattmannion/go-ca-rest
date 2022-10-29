@@ -80,37 +80,9 @@ func TestGetPostsSuccess(t *testing.T) {
 	assert.JSONEq(t, `[]`, rw.Body.String())
 }
 
-// func TestPostPostValidationFailure(t *testing.T) {
-// 	Post := &models.Post{}
-
-// 	MockService := new(mock_services.MockPostService)
-// 	MockService.On(Validate, mock.Anything).Return(errors.New("errors"))
-// 	MockService.On(Create, mock.Anything).Return(Post, nil)
-
-// 	PostController := NewPostController(MockService)
-
-// 	body, err := json.Marshal(Post)
-
-// 	assert.Equal(t, nil, err)
-
-// 	req, err := http.NewRequest(http.MethodPost, posts_route, bytes.NewBuffer(body))
-
-// 	assert.Equal(t, nil, err)
-
-// 	rw := httptest.NewRecorder()
-
-// 	http.HandlerFunc(PostController.PostPost).ServeHTTP(rw, req)
-
-// 	assert.Equal(t, http.StatusInternalServerError, rw.Code)
-
-// 	assert.JSONEq(t, `{"id": 0, "title": "", "text": ""}`, rw.Body.String())
-
-// }
-
-func TestPostPostFailures(t *testing.T) {
+func TestPostPostValidationFailure(t *testing.T) {
 	Post := &models.Post{}
 
-	// validation errors
 	MockService := new(mock_services.MockPostService)
 	MockService.On(Validate, mock.Anything).Return(errors.New("post validation error"))
 	MockService.On(Create, mock.Anything).Return(Post, nil)
@@ -132,30 +104,32 @@ func TestPostPostFailures(t *testing.T) {
 	assert.Equal(t, http.StatusInternalServerError, rw.Code)
 
 	assert.JSONEq(t, `{"error": "post validation error"}`, rw.Body.String())
+}
 
-	// creation errors
-	MockService = new(mock_services.MockPostService)
+func TestPostPostCreationFailure(t *testing.T) {
+	Post := &models.Post{}
+
+	MockService := new(mock_services.MockPostService)
 	MockService.On(Validate, mock.Anything).Return(nil)
 	MockService.On(Create, mock.Anything).Return(Post, errors.New("post creation error"))
 
-	PostController = NewPostController(MockService)
+	PostController := NewPostController(MockService)
 
-	body, err = json.Marshal(Post)
-
-	assert.Equal(t, nil, err)
-
-	req, err = http.NewRequest(http.MethodPost, posts_route, bytes.NewBuffer(body))
+	body, err := json.Marshal(Post)
 
 	assert.Equal(t, nil, err)
 
-	rw = httptest.NewRecorder()
+	req, err := http.NewRequest(http.MethodPost, posts_route, bytes.NewBuffer(body))
+
+	assert.Equal(t, nil, err)
+
+	rw := httptest.NewRecorder()
 
 	http.HandlerFunc(PostController.PostPost).ServeHTTP(rw, req)
 
 	assert.Equal(t, http.StatusInternalServerError, rw.Code)
 
 	assert.JSONEq(t, `{"error": "post creation error"}`, rw.Body.String())
-
 }
 
 func TestPostPostSuccess(t *testing.T) {
