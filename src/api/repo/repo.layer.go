@@ -2,7 +2,6 @@ package repo
 
 import (
 	"_/src/api/repo/firestore_repo"
-	"_/src/envs"
 	"_/src/types/repo_types"
 
 	"cloud.google.com/go/firestore"
@@ -13,5 +12,5 @@ import (
 type RepoLayer struct{ PostRepo repo_types.IPostRepo }
 
 func NewRepoLayer() *RepoLayer {
-	return &RepoLayer{PostRepo: firestore_repo.NewPostRepo(firestore.NewClient, envs.FirestoreProd)}
+	return &RepoLayer{PostRepo: firestore_repo.NewPostRepo(firestore.NewClient)}
 }

@@ -14,18 +14,17 @@ import (
 type NewFSC func(ctx context.Context, projectID string, opts ...option.ClientOption) (*firestore.Client, error)
 
 type PostRepo struct {
-	FSC  NewFSC
-	File string
+	NewClient NewFSC
 }
 
-func NewPostRepo(fsc NewFSC, file string) repo_types.IPostRepo {
-	return &PostRepo{FSC: fsc, File: file}
+func NewPostRepo(client NewFSC) repo_types.IPostRepo {
+	return &PostRepo{NewClient: client}
 }
 
 func (pr *PostRepo) Save(post *models.Post) (*models.Post, error) {
 	ctx := context.Background()
 
-	client, err := pr.FSC(ctx, envs.FirestoreProjectName, option.WithCredentialsFile(pr.File))
+	client, err := pr.NewClient(ctx, envs.Cfg.FirestoreProjectName, option.WithCredentialsFile(envs.Cfg.FirestoreJson))
 	if err != nil {
 		log.Fatalln("Failed to create firestore client")
 		return nil, err
@@ -33,7 +32,7 @@ func (pr *PostRepo) Save(post *models.Post) (*models.Post, error) {
 
 	defer client.Close()
 
-	_, _, err = client.Collection(envs.FirestoreCollectionName).Add(ctx, map[string]interface{}{
+	_, _, err = client.Collection(envs.Cfg.FirestoreCollectionName).Add(ctx, map[string]interface{}{
 		"Id":    post.Id,
 		"Title": post.Title,
 		"Text":  post.Text,
@@ -50,7 +49,7 @@ func (pr *PostRepo) FindAll() ([]models.Post, error) {
 
 	ctx := context.Background()
 
-	client, err := pr.FSC(ctx, envs.FirestoreProjectName, option.WithCredentialsFile(pr.File))
+	client, err := pr.NewClient(ctx, envs.Cfg.FirestoreProjectName, option.WithCredentialsFile(envs.Cfg.FirestoreJson))
 	if err != nil {
 		log.Fatalln("Failed to create firestore client")
 		return []models.Post{}, err
@@ -60,7 +59,7 @@ func (pr *PostRepo) FindAll() ([]models.Post, error) {
 
 	var posts []models.Post
 
-	iterator := client.Collection(envs.FirestoreCollectionName).Documents(ctx)
+	iterator := client.Collection(envs.Cfg.FirestoreCollectionName).Documents(ctx)
 
 	for {
 		doc, _ := iterator.Next()
