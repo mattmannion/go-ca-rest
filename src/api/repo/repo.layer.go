@@ -13,5 +13,5 @@ import (
 type RepoLayer struct{ PostRepo repo_types.IPostRepo }
 
 func NewRepoLayer() *RepoLayer {
-	return &RepoLayer{PostRepo: firestore_repo.NewPostRepo(firestore.NewClient, envs.FirestoreProjectName, envs.FirestoreCollectionName)}
+	return &RepoLayer{PostRepo: firestore_repo.NewPostRepo(firestore.NewClient, envs.FirestoreProd)}
 }

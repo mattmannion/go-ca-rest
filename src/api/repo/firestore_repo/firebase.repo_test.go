@@ -9,11 +9,9 @@ import (
 )
 
 func TestNewPostRepo(t *testing.T) {
-	assert.IsType(t, &PostRepo{}, NewPostRepo(firestore.NewClient, envs.FirestoreProjectName, envs.FirestoreCollectionName))
+	assert.IsType(t, &PostRepo{}, NewPostRepo(firestore.NewClient, envs.FirestoreProd))
 }
 
 func TestSaveClientFailure(t *testing.T) {
-	// PostRepo := NewPostRepo("", envs.FirestoreCollectionName)
 
-	// assert.Equal(t, "err", PostRepo.Save())
 }
