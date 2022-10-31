@@ -21,7 +21,7 @@ var (
 )
 
 func init() {
-	// Pg Init
+	// Db Init
 	Db, err = pgxpool.New(context.Background(), envs.PgConn)
 	if err != nil {
 		fmt.Printf("Db Driver failed to connect. Err: %v\n", err)
@@ -34,7 +34,7 @@ func init() {
 	}
 	fmt.Println("Database connected")
 
-	// Gorm Init
+	// Orm Init
 	Orm, err = gorm.Open(postgres.Open(envs.PgConn), &gorm.Config{
 		Logger: logger.Default.LogMode(logger.Silent),
 	})
@@ -52,13 +52,15 @@ func init() {
 		fmt.Printf("Auto Migration Failed. Err: %v\n", err)
 		return
 	}
+
 	fmt.Println("Database Syncohronized")
 
-	// DB Dev Reset
+	// DB Seeding for Development and Testing
 	if envs.Cfg.Env == envs.Dev {
-		Db.Exec(context.Background(), pg_sql.SeedPosts.TruncatePosts)
-		Db.Exec(context.Background(), pg_sql.SeedPosts.ResetPostsId)
-		Db.Exec(context.Background(), pg_sql.SeedPosts.InsertPosts)
+		// Seed Posts
+		Db.Query(context.Background(), pg_sql.SeedPosts.TruncatePosts)
+		Db.Query(context.Background(), pg_sql.SeedPosts.ResetPostsId)
+		Db.Query(context.Background(), pg_sql.SeedPosts.InsertPosts)
 
 		fmt.Println("Database Seeded")
 	}
