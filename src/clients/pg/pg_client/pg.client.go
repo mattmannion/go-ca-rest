@@ -1,7 +1,9 @@
 package pg_client
 
 import (
+	"_/src/clients/pg/pg_sql"
 	"_/src/envs"
+	"_/src/models"
 	"context"
 	"fmt"
 
@@ -43,10 +45,21 @@ func init() {
 	}
 
 	fmt.Println("Orm connected")
-	// err = DB.AutoMigrate(&models.Users{})
-	// if err != nil {
-	// 	fmt.Printf("Auto Migration Failed. Err: %v\n", err)
-	// }
+
+	// Orm Sync
+	err = Orm.AutoMigrate(&models.Post{})
+	if err != nil {
+		fmt.Printf("Auto Migration Failed. Err: %v\n", err)
+		return
+	}
+	fmt.Println("Database Syncohronized")
 
 	// DB Dev Reset
+	if envs.Cfg.Env == envs.Dev {
+		Db.Exec(context.Background(), pg_sql.SeedPosts.TruncatePosts)
+		Db.Exec(context.Background(), pg_sql.SeedPosts.ResetPostsId)
+		Db.Exec(context.Background(), pg_sql.SeedPosts.InsertPosts)
+
+		fmt.Println("Database Seeded")
+	}
 }

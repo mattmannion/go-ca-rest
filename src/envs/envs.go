@@ -5,17 +5,19 @@ import (
 )
 
 type cfg struct {
-	FirestoreProjectName    string `mapstructure:"FIRESTORE_PROJECTNAME"`
-	FirestoreCollectionName string `mapstructure:"FIRESTORE_COLLECTIONNAME"`
-	FirestoreJson           string `mapstructure:"FIRESTORE_JSON"`
-	PgUn                    string `mapstructure:"PGUN"`
-	PgPw                    string `mapstructure:"PGPW"`
-	PgDb                    string `mapstructure:"PGDB"`
+	Env  string `mapstructure:"ENV"`
+	PgUn string `mapstructure:"PGUN"`
+	PgPw string `mapstructure:"PGPW"`
+	PgDb string `mapstructure:"PGDB"`
 }
 
 var (
 	Cfg    cfg
 	PgConn string
+)
+
+const (
+	Dev string = "dev"
 )
 
 func init() {

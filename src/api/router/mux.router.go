@@ -25,6 +25,6 @@ func (*muxRouter) Post(url string, f func(resp http.ResponseWriter, req *http.Re
 }
 
 func (*muxRouter) Serve(port string) {
-	fmt.Printf("server live @ http://localhost%s\n", port)
+	fmt.Printf("Server live at: http://localhost%s\n", port)
 	log.Fatalln(http.ListenAndServe(port, mux_router))
 }
