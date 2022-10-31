@@ -14,9 +14,9 @@ services:
     image: postgres
     env_file: src/.env
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: Tempest1!
-      POSTGRES_DB: main
+      POSTGRES_USER: $${PGUN}
+      POSTGRES_PASSWORD: $${PGPW}
+      POSTGRES_DB: $${PGDB}
     ports:
       - 5432:5432
     volumes:
