@@ -28,8 +28,8 @@ func init() {
 	err := Db.Ping(context.Background())
 	if err != nil {
 		fmt.Printf("Db Driver failed to connect. Err: %v\n", err)
+		return
 	}
-
 	fmt.Println("Database connected")
 
 	// Gorm Init
@@ -39,14 +39,14 @@ func init() {
 
 	if err != nil {
 		fmt.Printf("Orm Driver failed to connect. Err: %v\n", err)
+		return
 	}
 
+	fmt.Println("Orm connected")
 	// err = DB.AutoMigrate(&models.Users{})
 	// if err != nil {
 	// 	fmt.Printf("Auto Migration Failed. Err: %v\n", err)
 	// }
-
-	fmt.Println("Orm connected")
 
 	// DB Dev Reset
 }
