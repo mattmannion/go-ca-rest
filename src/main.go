@@ -6,6 +6,7 @@ import (
 	"_/src/api/router"
 	"_/src/api/service"
 	"_/src/constants"
+	"_/src/envs"
 )
 
 var (
@@ -19,5 +20,5 @@ func main() {
 	Router.Get(constants.ApiPrefixV1+"/posts", Contollers.PostController.GetPosts)
 	Router.Post(constants.ApiPrefixV1+"/posts", Contollers.PostController.PostPost)
 
-	Router.Serve(":7890")
+	Router.Serve(envs.Cfg.Host, envs.Cfg.Port)
 }

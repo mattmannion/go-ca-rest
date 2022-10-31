@@ -6,6 +6,8 @@ import (
 
 type cfg struct {
 	Env    string `mapstructure:"ENV"`
+	Host   string `mapstructure:"HOST"`
+	Port   string `mapstructure:"PORT"`
 	PgHost string `mapstructure:"PGHOST"`
 	PgPort string `mapstructure:"PGPORT"`
 	PgUn   string `mapstructure:"PGUN"`
