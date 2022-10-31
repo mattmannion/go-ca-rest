@@ -16,19 +16,9 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: Tempest1!
-      POSTGRES_DB: Tempest1!
+      POSTGRES_DB: main
     ports:
       - 5432:5432
     volumes:
       - ./pgdata:/var/lib/data
-    restart: on-failure
-
-  firestore_emulator:
-    container_name: fs-em-goapi-ca-rest
-    image: mtlynch/firestore-emulator
-    environment:
-      - FIRESTORE_PROJECT_ID=fs-test
-      - PORT=8200
-    ports:
-      - 8200:8200
     restart: on-failure

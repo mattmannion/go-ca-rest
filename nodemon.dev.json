@@ -1,7 +1,7 @@
 {
   "ext": "go",
   "signal": "SIGTERM",
-  "exec": "commands/core/gorun.sh || exit 1",
+  "exec": "cd src && go run . || exit 1",
   "events": {
     "start": "clear"
   }

@@ -1,10 +1,12 @@
 package firestore_repo
 
 import (
+	"_/src/clients/pg/pg_client"
 	"_/src/envs"
 	"_/src/models"
 	"_/src/types/repo_types"
 	"context"
+	"fmt"
 	"log"
 
 	"cloud.google.com/go/firestore"
@@ -45,6 +47,11 @@ func (pr *PostRepo) Save(post *models.Post) (*models.Post, error) {
 	return post, nil
 }
 
+type Thing struct {
+	Id   int
+	Text string
+}
+
 func (pr *PostRepo) FindAll() ([]models.Post, error) {
 
 	ctx := context.Background()
@@ -73,6 +80,32 @@ func (pr *PostRepo) FindAll() ([]models.Post, error) {
 			Text:  doc.Data()["Text"].(string),
 		})
 	}
+
+	// postgres
+
+	things := []Thing{}
+
+	rows, err := pg_client.Db.Query(context.Background(), "select * from stuff")
+	if err != nil {
+		fmt.Printf("err query: %v\n", err)
+	}
+
+	defer rows.Close()
+
+	for rows.Next() {
+		fmt.Println("here")
+		thing := Thing{}
+		errl := rows.Scan(&thing.Id, &thing.Text)
+		if errl != nil {
+			fmt.Printf("err for loop: %v\n", errl)
+		}
+
+		things = append(things, thing)
+	}
+
+	fmt.Println(things)
+
+	// pg end
 
 	return posts, nil
 }
