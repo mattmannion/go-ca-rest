@@ -5,10 +5,12 @@ import (
 )
 
 type cfg struct {
-	Env  string `mapstructure:"ENV"`
-	PgUn string `mapstructure:"PGUN"`
-	PgPw string `mapstructure:"PGPW"`
-	PgDb string `mapstructure:"PGDB"`
+	Env    string `mapstructure:"ENV"`
+	PgHost string `mapstructure:"PGHOST"`
+	PgPort string `mapstructure:"PGPORT"`
+	PgUn   string `mapstructure:"PGUN"`
+	PgPw   string `mapstructure:"PGPW"`
+	PgDb   string `mapstructure:"PGDB"`
 }
 
 var (
@@ -27,5 +29,5 @@ func init() {
 
 	viper.Unmarshal(&Cfg)
 
-	PgConn = "postgres://" + Cfg.PgUn + ":" + Cfg.PgPw + "@localhost:5432/" + Cfg.PgDb
+	PgConn = "postgres://" + Cfg.PgUn + ":" + Cfg.PgPw + "@" + Cfg.PgHost + ":" + Cfg.PgPort + "/" + Cfg.PgDb
 }
