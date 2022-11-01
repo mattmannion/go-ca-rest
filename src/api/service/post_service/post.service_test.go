@@ -1,11 +1,12 @@
 package post_service
 
 import (
+	"_/src/api/repo"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNewPostService(t *testing.T) {
-	assert.Equal(t, 0, 0)
+	assert.IsType(t, &PostService{}, NewPostService(repo.NewRepoLayer().PostRepo))
 }
