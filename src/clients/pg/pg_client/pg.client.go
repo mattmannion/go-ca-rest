@@ -53,15 +53,19 @@ func init() {
 		return
 	}
 
-	fmt.Println("Database Syncohronized")
+	fmt.Println("Database Schema Syncohronized")
 
 	// DB Seeding for Development and Testing
 	if envs.Cfg.Env == envs.Dev {
-		// Seed Posts
-		Db.Query(context.Background(), pg_sql.SeedPosts.TruncatePosts)
-		Db.Query(context.Background(), pg_sql.SeedPosts.ResetPostsId)
-		Db.Query(context.Background(), pg_sql.SeedPosts.InsertPosts)
+		ResetAndSeedPgDb()
 
-		fmt.Println("Database Seeded")
+		fmt.Println("Database Reset and Seeded")
 	}
+}
+
+func ResetAndSeedPgDb() {
+	// Seed Posts
+	Db.Query(context.Background(), pg_sql.SeedPosts.TruncatePosts)
+	Db.Query(context.Background(), pg_sql.SeedPosts.ResetPostsId)
+	Db.Query(context.Background(), pg_sql.SeedPosts.InsertPosts)
 }

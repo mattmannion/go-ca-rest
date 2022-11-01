@@ -2,5 +2,6 @@
 
 cd src/api 
 
-go test ./... -coverpkg=./... -coverprofile=../../coverage/coverage.out &&
+go test ./... -coverprofile=../../coverage/coverage.out &&
+clear &&
 go tool cover -func ../../coverage/coverage.out 
