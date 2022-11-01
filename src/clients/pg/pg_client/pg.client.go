@@ -48,7 +48,7 @@ func init() {
 
 func ResetAndSeedPgDb() {
 	// Seed Posts
-	Db.Raw(pg_sql.SeedPosts.TruncatePosts)
-	Db.Raw(pg_sql.SeedPosts.ResetPostsId)
-	Db.Raw(pg_sql.SeedPosts.InsertPosts)
+	Db.Exec(pg_sql.SeedPosts.TruncatePosts)
+	Db.Exec(pg_sql.SeedPosts.ResetPostsId)
+	Db.Exec(pg_sql.SeedPosts.InsertPosts)
 }
