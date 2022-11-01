@@ -26,6 +26,7 @@ var Posts = struct {
 	insert into posts
 	(title, text)
 	values
-	($1, $2);
+	($1, $2)
+	returning *;
 	`,
 }
