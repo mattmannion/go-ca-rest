@@ -5,7 +5,6 @@ import (
 	"_/src/types/repo_types"
 	"_/src/types/service_types"
 	"errors"
-	"math/rand"
 )
 
 type PostService struct{ PostRepo repo_types.IPostRepo }
@@ -35,6 +34,5 @@ func (s *PostService) FindAll() ([]models.Post, error) {
 }
 
 func (s *PostService) Create(post *models.Post) (*models.Post, error) {
-	post.Id = rand.Int()
 	return s.PostRepo.Insert(post)
 }
