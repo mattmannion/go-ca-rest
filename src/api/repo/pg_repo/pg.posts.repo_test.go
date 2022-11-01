@@ -9,11 +9,11 @@ import (
 )
 
 func TestNewPostController(t *testing.T) {
-	assert.IsType(t, &PostRepo{}, NewPostRepo(Deps{Db: pg_client.Db}))
+	assert.IsType(t, &PostRepo{}, NewPostRepo(pg_client.Db))
 }
 
 func TestInsert(t *testing.T) {
-	PostRepo := NewPostRepo(Deps{Db: pg_client.Db})
+	PostRepo := NewPostRepo(pg_client.Db)
 
 	Post := &models.Post{
 		Title: "Test Post",
@@ -34,7 +34,7 @@ func TestInsert(t *testing.T) {
 }
 
 func TestGetAll(t *testing.T) {
-	PostRepo := NewPostRepo(Deps{Db: pg_client.Db})
+	PostRepo := NewPostRepo(pg_client.Db)
 
 	Posts, err := PostRepo.GetAll()
 

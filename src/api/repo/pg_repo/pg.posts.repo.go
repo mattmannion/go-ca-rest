@@ -1,37 +1,22 @@
 package pg_repo
 
 import (
-	"_/src/clients/pg/pg_sql"
 	"_/src/models"
 	"_/src/types/repo_types"
-	"context"
 
-	"github.com/jackc/pgx/v5/pgxpool"
+	"gorm.io/gorm"
 )
 
-type Deps struct {
-	Db *pgxpool.Pool
-}
-
 type PostRepo struct {
-	Db *pgxpool.Pool
+	Db *gorm.DB
 }
 
-func NewPostRepo(deps Deps) repo_types.IPostRepo {
-	return &PostRepo{Db: deps.Db}
+func NewPostRepo(db *gorm.DB) repo_types.IPostRepo {
+	return &PostRepo{Db: db}
 }
 
 func (pr *PostRepo) Insert(post *models.Post) (*models.Post, error) {
-	pr.Db.QueryRow(
-		context.Background(),
-		pg_sql.Posts.InsertPost,
-		post.Title,
-		post.Text,
-	).Scan(
-		&post.Id,
-		&post.Title,
-		&post.Text,
-	)
+	pr.Db.Create(&post)
 
 	return post, nil
 }
@@ -39,17 +24,7 @@ func (pr *PostRepo) Insert(post *models.Post) (*models.Post, error) {
 func (pr *PostRepo) GetAll() ([]models.Post, error) {
 	posts := []models.Post{}
 
-	rows, _ := pr.Db.Query(context.Background(), pg_sql.Posts.GetAll)
-
-	defer rows.Close()
-
-	for rows.Next() {
-		post := &models.Post{}
-
-		rows.Scan(&post.Id, &post.Title, &post.Text)
-
-		posts = append(posts, *post)
-	}
+	pr.Db.Find(&posts)
 
 	return posts, nil
 }
