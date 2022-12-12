@@ -1,6 +1,7 @@
-package router
+package gmux
 
 import (
+	"_/src/types/router_types"
 	"fmt"
 	"log"
 	"net/http"
@@ -12,7 +13,7 @@ var mux_router *mux.Router = mux.NewRouter()
 
 type muxRouter struct{}
 
-func NewMuxRouter() Router {
+func NewMuxRouter() router_types.IRouter {
 	return &muxRouter{}
 }
 
