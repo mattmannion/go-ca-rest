@@ -14,10 +14,6 @@ func NewPostService(PostRepo repo_types.IPostRepo) service_types.IPostService {
 }
 
 func (*PostService) Validate(post *models.Post) error {
-	if post == nil {
-		return errors.New("no Posts")
-	}
-
 	if post.Title == "" {
 		return errors.New("no title")
 	}
