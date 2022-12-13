@@ -17,5 +17,5 @@ var (
 )
 
 func main() {
-	Router.Serve()
+	Router.ServeRestApi()
 }

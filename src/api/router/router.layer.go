@@ -27,7 +27,7 @@ func NewRouterLayer(
 		PostRouter: *routers.NewPostRouter(router, ctrlr)}
 }
 
-func (rl *RouterLayer) Serve() {
+func (rl *RouterLayer) ServeRestApi() {
 	rl.PostRouter.Register()
 
 	fmt.Printf("Server live at: http://%s:%s\n", rl.cfg.Host, rl.cfg.Port)
