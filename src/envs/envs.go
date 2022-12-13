@@ -4,7 +4,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-type cfg struct {
+type TCfg struct {
 	Env    string `mapstructure:"ENV"`
 	Host   string `mapstructure:"HOST"`
 	Port   string `mapstructure:"PORT"`
@@ -16,7 +16,7 @@ type cfg struct {
 }
 
 var (
-	Cfg    cfg
+	Cfg    TCfg
 	PgConn string
 )
 
