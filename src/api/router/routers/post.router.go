@@ -6,7 +6,7 @@ import (
 	"_/src/types/router_types"
 )
 
-const prefix string = constants.ApiPrefixV1 + "/posts"
+const url string = constants.ApiPrefixV1 + "/posts"
 
 type PostRouter struct {
 	router router_types.Router
@@ -16,10 +16,7 @@ func NewPostRouter(router router_types.IRouter, controller controller.Controller
 	return &PostRouter{router: router_types.Router{Router: router, Ctrlr: controller}}
 }
 
-func (pr *PostRouter) GetPostsRoute() {
-	pr.router.Router.Get(prefix, pr.router.Ctrlr.PostController.GetPosts)
-}
-
-func (pr *PostRouter) PostPostRouter() {
-	pr.router.Router.Post(prefix, pr.router.Ctrlr.PostController.PostPost)
+func (pr *PostRouter) Register() {
+	pr.router.Router.Get(url, pr.router.Ctrlr.PostController.GetPosts)
+	pr.router.Router.Post(url, pr.router.Ctrlr.PostController.PostPost)
 }

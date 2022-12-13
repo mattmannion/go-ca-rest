@@ -28,8 +28,7 @@ func NewRouterLayer(
 }
 
 func (rl *RouterLayer) Serve() {
-	rl.PostRouter.GetPostsRoute()
-	rl.PostRouter.PostPostRouter()
+	rl.PostRouter.Register()
 
 	fmt.Printf("Server live at: http://%s:%s\n", rl.cfg.Host, rl.cfg.Port)
 	log.Fatalln(http.ListenAndServe(rl.cfg.Host+":"+rl.cfg.Port, rl.handler))
