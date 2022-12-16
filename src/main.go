@@ -13,7 +13,11 @@ var (
 	RepoLayer  = repo.NewRepoLayer()
 	Services   = service.NewServiceLayer(service.Deps{RepoLayer: *RepoLayer})
 	Contollers = controller.NewControllerLayer(controller.Deps{ServiceLayer: *Services})
-	Router     = router.NewRouterLayer(gin_mux.NewMuxRouter(), *Contollers, envs.Cfg)
+	Router     = router.NewRouterLayer(router.Deps{
+		Router: gin_mux.NewMuxRouter(),
+		Ctrlr:  *Contollers,
+		Cfg:    envs.Cfg,
+	})
 )
 
 func main() {

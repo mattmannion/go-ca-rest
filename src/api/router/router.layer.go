@@ -10,22 +10,24 @@ import (
 	"net/http"
 )
 
+type Deps struct {
+	Router router_types.IMux
+	Ctrlr  controller.ControllerLayer
+	Cfg    envs.TCfg
+}
+
 type RouterLayer struct {
 	handler http.Handler
 	cfg     envs.TCfg
 	routers []router_types.IRouter
 }
 
-func NewRouterLayer(
-	router router_types.IMux,
-	ctrlr controller.ControllerLayer,
-	cfg envs.TCfg,
-) *RouterLayer {
+func NewRouterLayer(deps Deps) *RouterLayer {
 	return &RouterLayer{
-		handler: router.Handler(),
-		cfg:     cfg,
+		handler: deps.Router.Handler(),
+		cfg:     deps.Cfg,
 		routers: []router_types.IRouter{
-			routers.NewPostRouter(router, ctrlr),
+			routers.NewPostRouter(deps.Router, deps.Ctrlr),
 		},
 	}
 }
