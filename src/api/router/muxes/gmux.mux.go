@@ -1,4 +1,4 @@
-package mx
+package muxes
 
 import (
 	"_/src/types/router_types"

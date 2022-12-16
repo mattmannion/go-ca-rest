@@ -4,7 +4,7 @@ import (
 	"_/src/api/controller"
 	"_/src/api/repo"
 	"_/src/api/router"
-	"_/src/api/router/mx"
+	"_/src/api/router/muxes"
 	"_/src/api/service"
 	"_/src/envs"
 )
@@ -14,7 +14,7 @@ var (
 	Services   = service.NewServiceLayer(service.Deps{RepoLayer: *RepoLayer})
 	Contollers = controller.NewControllerLayer(controller.Deps{ServiceLayer: *Services})
 	Router     = router.NewRouterLayer(router.Deps{
-		Router: mx.NewGinMux(),
+		Router: muxes.NewGinMux(),
 		Ctrlr:  *Contollers,
 		Cfg:    envs.Cfg,
 	})
