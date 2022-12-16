@@ -7,7 +7,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-var gmux_router *mux.Router = mux.NewRouter()
+var gor_mux *mux.Router = mux.NewRouter()
 
 type GorMux struct{}
 
@@ -16,13 +16,13 @@ func NewGorMux() router_types.IMux {
 }
 
 func (mr *GorMux) Mux() http.Handler {
-	return gmux_router
+	return gor_mux
 }
 
 func (*GorMux) Get(url string, f func(resp http.ResponseWriter, req *http.Request)) {
-	gmux_router.HandleFunc(url, f).Methods(http.MethodGet)
+	gor_mux.HandleFunc(url, f).Methods(http.MethodGet)
 }
 
 func (*GorMux) Post(url string, f func(resp http.ResponseWriter, req *http.Request)) {
-	gmux_router.HandleFunc(url, f).Methods(http.MethodPost)
+	gor_mux.HandleFunc(url, f).Methods(http.MethodPost)
 }

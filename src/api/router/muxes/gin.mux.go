@@ -7,15 +7,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-var server *gin.Engine
+var gin_mux *gin.Engine
 
 func init() {
 	gin.SetMode(gin.ReleaseMode)
 
-	server = gin.New()
+	gin_mux = gin.New()
 
-	server.Use(gin.Logger())
-	server.Use(gin.Recovery())
+	gin_mux.Use(gin.Logger())
+	gin_mux.Use(gin.Recovery())
 }
 
 type GinMux struct{}
@@ -25,7 +25,7 @@ func NewGinMux() router_types.IMux {
 }
 
 func (mr *GinMux) Mux() http.Handler {
-	return server
+	return gin_mux
 }
 
 func gin_hf(f func(resp http.ResponseWriter, req *http.Request)) gin.HandlerFunc {
@@ -33,9 +33,9 @@ func gin_hf(f func(resp http.ResponseWriter, req *http.Request)) gin.HandlerFunc
 }
 
 func (mr *GinMux) Get(url string, f func(resp http.ResponseWriter, req *http.Request)) {
-	server.GET(url, gin_hf(f))
+	gin_mux.GET(url, gin_hf(f))
 }
 
 func (*GinMux) Post(url string, f func(resp http.ResponseWriter, req *http.Request)) {
-	server.POST(url, gin_hf(f))
+	gin_mux.POST(url, gin_hf(f))
 }
