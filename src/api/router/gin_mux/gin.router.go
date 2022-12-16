@@ -20,7 +20,7 @@ func init() {
 
 type muxRouter struct{}
 
-func NewMuxRouter() router_types.IRouter {
+func NewMuxRouter() router_types.IMux {
 	return &muxRouter{}
 }
 

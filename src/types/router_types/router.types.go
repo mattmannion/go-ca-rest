@@ -5,13 +5,17 @@ import (
 	"net/http"
 )
 
-type IRouter interface {
+type IMux interface {
 	Handler() http.Handler
 	Get(url string, f func(resp http.ResponseWriter, req *http.Request))
 	Post(url string, f func(resp http.ResponseWriter, req *http.Request))
 }
 
-type Router struct {
-	Router IRouter
-	Ctrlr  controller.ControllerLayer
+type IRouter interface {
+	Register()
+}
+
+type TMux struct {
+	Mux   IMux
+	Ctrlr controller.ControllerLayer
 }
