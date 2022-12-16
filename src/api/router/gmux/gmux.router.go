@@ -11,7 +11,7 @@ var gmux_router *mux.Router = mux.NewRouter()
 
 type muxRouter struct{}
 
-func NewMuxRouter() router_types.IMux {
+func NewMux() router_types.IMux {
 	return &muxRouter{}
 }
 
