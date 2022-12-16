@@ -1,4 +1,4 @@
-package gin_mux
+package mux
 
 import (
 	"_/src/types/router_types"
@@ -18,13 +18,13 @@ func init() {
 	server.Use(gin.Recovery())
 }
 
-type muxRouter struct{}
+type GinMux struct{}
 
-func NewMux() router_types.IMux {
-	return &muxRouter{}
+func NewGinMux() router_types.IMux {
+	return &GinMux{}
 }
 
-func (mr *muxRouter) Mux() http.Handler {
+func (mr *GinMux) Mux() http.Handler {
 	return server
 }
 
@@ -32,10 +32,10 @@ func gin_hf(f func(resp http.ResponseWriter, req *http.Request)) gin.HandlerFunc
 	return func(c *gin.Context) { f(c.Writer, c.Request) }
 }
 
-func (mr *muxRouter) Get(url string, f func(resp http.ResponseWriter, req *http.Request)) {
+func (mr *GinMux) Get(url string, f func(resp http.ResponseWriter, req *http.Request)) {
 	server.GET(url, gin_hf(f))
 }
 
-func (*muxRouter) Post(url string, f func(resp http.ResponseWriter, req *http.Request)) {
+func (*GinMux) Post(url string, f func(resp http.ResponseWriter, req *http.Request)) {
 	server.POST(url, gin_hf(f))
 }
