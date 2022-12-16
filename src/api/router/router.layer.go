@@ -11,32 +11,32 @@ import (
 )
 
 type Deps struct {
-	Router router_types.IMux
-	Ctrlr  controller.ControllerLayer
-	Cfg    envs.TCfg
+	Mux   router_types.IMux
+	Ctrlr controller.ControllerLayer
+	Cfg   envs.TCfg
 }
 
 type RouterLayer struct {
-	mux     http.Handler
-	cfg     envs.TCfg
-	routers []router_types.IRouter
+	Mux     http.Handler
+	Cfg     envs.TCfg
+	Routers []router_types.IRouter
 }
 
 func NewRouterLayer(deps Deps) *RouterLayer {
 	return &RouterLayer{
-		mux: deps.Router.Mux(),
-		cfg: deps.Cfg,
-		routers: []router_types.IRouter{
-			routers.NewPostRouter(deps.Router, deps.Ctrlr),
+		Mux: deps.Mux.Mux(),
+		Cfg: deps.Cfg,
+		Routers: []router_types.IRouter{
+			routers.NewPostRouter(deps.Mux, deps.Ctrlr),
 		},
 	}
 }
 
 func (rl *RouterLayer) ServeRestApi() {
-	for _, router := range rl.routers {
+	for _, router := range rl.Routers {
 		router.Register()
 	}
 
-	fmt.Printf("Server live at: http://%s:%s\n", rl.cfg.Host, rl.cfg.Port)
-	log.Fatalln(http.ListenAndServe(rl.cfg.Host+":"+rl.cfg.Port, rl.mux))
+	fmt.Printf("Server live at: http://%s:%s\n", rl.Cfg.Host, rl.Cfg.Port)
+	log.Fatalln(http.ListenAndServe(rl.Cfg.Host+":"+rl.Cfg.Port, rl.Mux))
 }
