@@ -6,7 +6,7 @@ import (
 )
 
 type IMux interface {
-	Handler() http.Handler
+	Mux() http.Handler
 	Get(url string, f func(resp http.ResponseWriter, req *http.Request))
 	Post(url string, f func(resp http.ResponseWriter, req *http.Request))
 }

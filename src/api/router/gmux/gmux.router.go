@@ -15,7 +15,7 @@ func NewMuxRouter() router_types.IMux {
 	return &muxRouter{}
 }
 
-func (mr *muxRouter) Handler() http.Handler {
+func (mr *muxRouter) Mux() http.Handler {
 	return gmux_router
 }
 

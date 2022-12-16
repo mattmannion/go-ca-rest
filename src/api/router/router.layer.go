@@ -17,15 +17,15 @@ type Deps struct {
 }
 
 type RouterLayer struct {
-	handler http.Handler
+	mux     http.Handler
 	cfg     envs.TCfg
 	routers []router_types.IRouter
 }
 
 func NewRouterLayer(deps Deps) *RouterLayer {
 	return &RouterLayer{
-		handler: deps.Router.Handler(),
-		cfg:     deps.Cfg,
+		mux: deps.Router.Mux(),
+		cfg: deps.Cfg,
 		routers: []router_types.IRouter{
 			routers.NewPostRouter(deps.Router, deps.Ctrlr),
 		},
@@ -38,5 +38,5 @@ func (rl *RouterLayer) ServeRestApi() {
 	}
 
 	fmt.Printf("Server live at: http://%s:%s\n", rl.cfg.Host, rl.cfg.Port)
-	log.Fatalln(http.ListenAndServe(rl.cfg.Host+":"+rl.cfg.Port, rl.handler))
+	log.Fatalln(http.ListenAndServe(rl.cfg.Host+":"+rl.cfg.Port, rl.mux))
 }
