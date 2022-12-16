@@ -28,14 +28,14 @@ func (mr *muxRouter) Handler() http.Handler {
 	return server
 }
 
-func gin_wrapper(f func(resp http.ResponseWriter, req *http.Request)) gin.HandlerFunc {
+func gin_hf(f func(resp http.ResponseWriter, req *http.Request)) gin.HandlerFunc {
 	return func(c *gin.Context) { f(c.Writer, c.Request) }
 }
 
 func (mr *muxRouter) Get(url string, f func(resp http.ResponseWriter, req *http.Request)) {
-	server.GET(url, gin_wrapper(f))
+	server.GET(url, gin_hf(f))
 }
 
 func (*muxRouter) Post(url string, f func(resp http.ResponseWriter, req *http.Request)) {
-	server.POST(url, gin_wrapper(f))
+	server.POST(url, gin_hf(f))
 }
