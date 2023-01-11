@@ -18,9 +18,9 @@ func TestGorMux(t *testing.T) {
 
 func TestGorMethods(t *testing.T) {
 	mux := NewGorMux()
-	assert.IsType(t, gm.Route{}, mux.Get("/gortesting", fn))
-	assert.IsType(t, gm.Route{}, mux.Post("/gortesting", fn))
-	assert.IsType(t, gm.Route{}, mux.Put("/gortesting", fn))
-	assert.IsType(t, gm.Route{}, mux.Patch("/gortesting", fn))
-	assert.IsType(t, gm.Route{}, mux.Delete("/gortesting", fn))
+	assert.IsType(t, &gm.Route{}, mux.Get("/gortesting", fn))
+	assert.IsType(t, &gm.Route{}, mux.Post("/gortesting", fn))
+	assert.IsType(t, &gm.Route{}, mux.Put("/gortesting", fn))
+	assert.IsType(t, &gm.Route{}, mux.Patch("/gortesting", fn))
+	assert.IsType(t, &gm.Route{}, mux.Delete("/gortesting", fn))
 }
