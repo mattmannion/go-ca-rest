@@ -26,3 +26,15 @@ func (*GorMux) Get(url string, f http.HandlerFunc) router_types.IRoute {
 func (*GorMux) Post(url string, f http.HandlerFunc) router_types.IRoute {
 	return gor_mux.HandleFunc(url, f).Methods(http.MethodPost)
 }
+
+func (*GorMux) Put(url string, f http.HandlerFunc) router_types.IRoute {
+	return gor_mux.HandleFunc(url, f).Methods(http.MethodPut)
+}
+
+func (*GorMux) Patch(url string, f http.HandlerFunc) router_types.IRoute {
+	return gor_mux.HandleFunc(url, f).Methods(http.MethodPatch)
+}
+
+func (*GorMux) Delete(url string, f http.HandlerFunc) router_types.IRoute {
+	return gor_mux.HandleFunc(url, f).Methods(http.MethodPatch)
+}

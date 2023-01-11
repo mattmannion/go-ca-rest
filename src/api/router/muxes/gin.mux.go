@@ -35,3 +35,15 @@ func (*GinMux) Get(url string, f http.HandlerFunc) router_types.IRoute {
 func (*GinMux) Post(url string, f http.HandlerFunc) router_types.IRoute {
 	return gin_mux.POST(url, gin.WrapF(f))
 }
+
+func (*GinMux) Put(url string, f http.HandlerFunc) router_types.IRoute {
+	return gin_mux.PUT(url, gin.WrapF(f))
+}
+
+func (*GinMux) Patch(url string, f http.HandlerFunc) router_types.IRoute {
+	return gin_mux.PATCH(url, gin.WrapF(f))
+}
+
+func (*GinMux) Delete(url string, f http.HandlerFunc) router_types.IRoute {
+	return gin_mux.DELETE(url, gin.WrapF(f))
+}

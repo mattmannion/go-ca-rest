@@ -17,9 +17,8 @@ func (MockHttpClient) Mux() http.Handler {
 	return http.NewServeMux()
 }
 
-func (MockHttpClient) Get(url string, f http.HandlerFunc) router_types.IRoute {
-	return f
-}
-func (MockHttpClient) Post(url string, f http.HandlerFunc) router_types.IRoute {
-	return f
-}
+func (MockHttpClient) Get(url string, f http.HandlerFunc) router_types.IRoute    { return f }
+func (MockHttpClient) Post(url string, f http.HandlerFunc) router_types.IRoute   { return f }
+func (MockHttpClient) Put(url string, f http.HandlerFunc) router_types.IRoute    { return f }
+func (MockHttpClient) Patch(url string, f http.HandlerFunc) router_types.IRoute  { return f }
+func (MockHttpClient) Delete(url string, f http.HandlerFunc) router_types.IRoute { return f }

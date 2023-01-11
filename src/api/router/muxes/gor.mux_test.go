@@ -16,12 +16,11 @@ func TestGorMux(t *testing.T) {
 	assert.IsType(t, &gm.Router{}, mux.Mux())
 }
 
-func TestGorGet(t *testing.T) {
+func TestGorMethods(t *testing.T) {
 	mux := NewGorMux()
 	assert.IsType(t, &gm.Route{}, mux.Get("/gortesting", fn))
-}
-
-func TestGorPost(t *testing.T) {
-	mux := NewGorMux()
 	assert.IsType(t, &gm.Route{}, mux.Post("/gortesting", fn))
+	assert.IsType(t, &gm.Route{}, mux.Put("/gortesting", fn))
+	assert.IsType(t, &gm.Route{}, mux.Patch("/gortesting", fn))
+	assert.IsType(t, &gm.Route{}, mux.Delete("/gortesting", fn))
 }
