@@ -5,10 +5,12 @@ import (
 	"net/http"
 )
 
+type IRoute = interface{}
+
 type IMux interface {
 	Mux() http.Handler
-	Get(url string, f func(resp http.ResponseWriter, req *http.Request))
-	Post(url string, f func(resp http.ResponseWriter, req *http.Request))
+	Get(url string, f http.HandlerFunc) IRoute
+	Post(url string, f http.HandlerFunc) IRoute
 }
 
 type IRouter interface {

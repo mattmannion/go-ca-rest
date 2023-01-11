@@ -28,14 +28,10 @@ func (mr *GinMux) Mux() http.Handler {
 	return gin_mux
 }
 
-func gin_hf(f func(resp http.ResponseWriter, req *http.Request)) gin.HandlerFunc {
-	return func(c *gin.Context) { f(c.Writer, c.Request) }
+func (*GinMux) Get(url string, f http.HandlerFunc) router_types.IRoute {
+	return gin_mux.GET(url, gin.WrapF(f))
 }
 
-func (mr *GinMux) Get(url string, f func(resp http.ResponseWriter, req *http.Request)) {
-	gin_mux.GET(url, gin_hf(f))
-}
-
-func (*GinMux) Post(url string, f func(resp http.ResponseWriter, req *http.Request)) {
-	gin_mux.POST(url, gin_hf(f))
+func (*GinMux) Post(url string, f http.HandlerFunc) router_types.IRoute {
+	return gin_mux.POST(url, gin.WrapF(f))
 }

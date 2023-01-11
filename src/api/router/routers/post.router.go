@@ -9,14 +9,14 @@ import (
 const url string = constants.ApiPrefixV1 + "/posts"
 
 type PostRouter struct {
-	Mux router_types.TMux
+	Router router_types.TMux
 }
 
 func NewPostRouter(router router_types.IMux, controller controller.ControllerLayer) *PostRouter {
-	return &PostRouter{Mux: router_types.TMux{Mux: router, Ctrlr: controller}}
+	return &PostRouter{Router: router_types.TMux{Mux: router, Ctrlr: controller}}
 }
 
 func (pr *PostRouter) Register() {
-	pr.Mux.Mux.Get(url, pr.Mux.Ctrlr.PostController.GetPosts)
-	pr.Mux.Mux.Post(url, pr.Mux.Ctrlr.PostController.PostPost)
+	pr.Router.Mux.Get(url, pr.Router.Ctrlr.PostController.GetPosts)
+	pr.Router.Mux.Post(url, pr.Router.Ctrlr.PostController.PostPost)
 }

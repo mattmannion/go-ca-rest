@@ -19,10 +19,10 @@ func (mr *GorMux) Mux() http.Handler {
 	return gor_mux
 }
 
-func (*GorMux) Get(url string, f func(resp http.ResponseWriter, req *http.Request)) {
-	gor_mux.HandleFunc(url, f).Methods(http.MethodGet)
+func (*GorMux) Get(url string, f http.HandlerFunc) router_types.IRoute {
+	return gor_mux.HandleFunc(url, f).Methods(http.MethodGet)
 }
 
-func (*GorMux) Post(url string, f func(resp http.ResponseWriter, req *http.Request)) {
-	gor_mux.HandleFunc(url, f).Methods(http.MethodPost)
+func (*GorMux) Post(url string, f http.HandlerFunc) router_types.IRoute {
+	return gor_mux.HandleFunc(url, f).Methods(http.MethodPost)
 }
