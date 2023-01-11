@@ -22,9 +22,9 @@ func TestGinMux(t *testing.T) {
 
 func TestGinMethods(t *testing.T) {
 	mux := NewGinMux()
-	assert.IsType(t, eng, mux.Get("/gintesting", fn))
-	assert.IsType(t, eng, mux.Post("/gintesting", fn))
-	assert.IsType(t, eng, mux.Put("/gintesting", fn))
-	assert.IsType(t, eng, mux.Patch("/gintesting", fn))
-	assert.IsType(t, eng, mux.Delete("/gintesting", fn))
+	assert.IsType(t, eng, mux.Get("", fn))
+	assert.IsType(t, eng, mux.Post("", fn))
+	assert.IsType(t, eng, mux.Put("", fn))
+	assert.IsType(t, eng, mux.Patch("", fn))
+	assert.IsType(t, eng, mux.Delete("", fn))
 }
