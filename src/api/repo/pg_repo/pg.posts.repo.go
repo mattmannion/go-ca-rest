@@ -7,9 +7,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type PostRepo struct {
-	Db *gorm.DB
-}
+type PostRepo struct{ Db *gorm.DB }
 
 func NewPostRepo(db *gorm.DB) repo_types.IPostRepo {
 	return &PostRepo{Db: db}

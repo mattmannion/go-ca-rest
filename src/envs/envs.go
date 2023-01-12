@@ -10,9 +10,9 @@ type TCfg struct {
 	Port   string `mapstructure:"PORT"`
 	PgHost string `mapstructure:"PGHOST"`
 	PgPort string `mapstructure:"PGPORT"`
-	PgUn   string `mapstructure:"PGUN"`
-	PgPw   string `mapstructure:"PGPW"`
-	PgDb   string `mapstructure:"PGDB"`
+	PgPw   string `mapstructure:"POSTGRES_PASSWORD"`
+	PgDb   string `mapstructure:"POSTGRES_DB"`
+	PgUn   string `mapstructure:"POSTGRES_USER"`
 }
 
 var (
