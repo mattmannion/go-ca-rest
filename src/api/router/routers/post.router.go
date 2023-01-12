@@ -16,7 +16,8 @@ func NewPostRouter(router router_types.IMux, controller controller.ControllerLay
 	return &PostRouter{Router: router_types.TMux{Mux: router, Ctrlr: controller}}
 }
 
-func (pr *PostRouter) Register() {
+func (pr *PostRouter) Register() error {
 	pr.Router.Mux.Get(url, pr.Router.Ctrlr.PostController.GetPosts)
 	pr.Router.Mux.Post(url, pr.Router.Ctrlr.PostController.PostPost)
+	return nil
 }

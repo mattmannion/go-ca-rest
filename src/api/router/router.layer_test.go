@@ -13,7 +13,7 @@ var rl = NewRouterLayer(
 	Deps{
 		Router: mock_clients.MockHttpClient{},
 		Ctrlr:  controller.ControllerLayer{},
-		Cfg:    envs.TCfg{},
+		Cfg:    envs.Cfg,
 	},
 )
 
@@ -22,5 +22,5 @@ func TestNewRouterLayer(t *testing.T) {
 }
 
 func TestServeRestApi(t *testing.T) {
-	// rl.ServeRestApi()
+	// log.Fatalln(rl.ServeRestApi())
 }

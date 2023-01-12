@@ -6,7 +6,6 @@ import (
 	"_/src/envs"
 	"_/src/types/router_types"
 	"fmt"
-	"log"
 	"net/http"
 )
 
@@ -32,11 +31,11 @@ func NewRouterLayer(deps Deps) *RouterLayer {
 	}
 }
 
-func (rl *RouterLayer) ServeRestApi() {
+func (rl *RouterLayer) ServeRestApi() error {
 	for _, router := range rl.Routers {
 		router.Register()
 	}
 
 	fmt.Printf("Server live at: http://%s:%s\n", rl.Cfg.Host, rl.Cfg.Port)
-	log.Fatalln(http.ListenAndServe(rl.Cfg.Host+":"+rl.Cfg.Port, rl.Mux))
+	return http.ListenAndServe(rl.Cfg.Host+":"+rl.Cfg.Port, rl.Mux)
 }

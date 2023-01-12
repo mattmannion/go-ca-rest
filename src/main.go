@@ -7,6 +7,7 @@ import (
 	"_/src/api/router/muxes"
 	"_/src/api/service"
 	"_/src/envs"
+	"log"
 )
 
 var (
@@ -21,5 +22,5 @@ var (
 )
 
 func main() {
-	Router.ServeRestApi()
+	log.Fatalln(Router.ServeRestApi())
 }

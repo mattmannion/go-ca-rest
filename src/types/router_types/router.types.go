@@ -17,7 +17,7 @@ type IMux interface {
 }
 
 type IRouter interface {
-	Register()
+	Register() error
 }
 
 type TMux struct {
