@@ -13,11 +13,11 @@ type PostRouter struct {
 }
 
 func NewPostRouter(router router_types.IMux, controller controller.ControllerLayer) *PostRouter {
-	return &PostRouter{Router: router_types.TMux{Mux: router, Ctrlr: controller}}
+	return &PostRouter{Router: router_types.TMux{Mux: router, Controller: controller}}
 }
 
 func (pr *PostRouter) Register() error {
-	pr.Router.Mux.Get(url, pr.Router.Ctrlr.PostController.GetPosts)
-	pr.Router.Mux.Post(url, pr.Router.Ctrlr.PostController.PostPost)
+	pr.Router.Mux.Get(url, pr.Router.Controller.PostController.GetPosts)
+	pr.Router.Mux.Post(url, pr.Router.Controller.PostController.PostPost)
 	return nil
 }

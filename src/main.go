@@ -15,9 +15,9 @@ var (
 	Services   = service.NewServiceLayer(service.Deps{RepoLayer: *RepoLayer})
 	Contollers = controller.NewControllerLayer(controller.Deps{ServiceLayer: *Services})
 	Router     = router.NewRouterLayer(router.Deps{
-		Router: muxes.NewGinMux(),
-		Ctrlr:  *Contollers,
-		Cfg:    envs.Cfg,
+		Router:     muxes.NewGinMux(),
+		Controller: *Contollers,
+		Cfg:        envs.Cfg,
 	})
 )
 

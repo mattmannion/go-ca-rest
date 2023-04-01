@@ -21,6 +21,6 @@ type IRouter interface {
 }
 
 type TMux struct {
-	Mux   IMux
-	Ctrlr controller.ControllerLayer
+	Mux        IMux
+	Controller controller.ControllerLayer
 }

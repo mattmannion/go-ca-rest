@@ -15,5 +15,7 @@ func TestNewPostRouter(t *testing.T) {
 }
 
 func TestRegister(t *testing.T) {
-	// pr.Register()
+	//  pr.Register()
+
+	// assert.IsType(t, err, nil)
 }

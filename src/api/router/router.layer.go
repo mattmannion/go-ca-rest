@@ -10,9 +10,9 @@ import (
 )
 
 type Deps struct {
-	Router router_types.IMux
-	Ctrlr  controller.ControllerLayer
-	Cfg    envs.TCfg
+	Router     router_types.IMux
+	Controller controller.ControllerLayer
+	Cfg        envs.TCfg
 }
 
 type RouterLayer struct {
@@ -26,7 +26,7 @@ func NewRouterLayer(deps Deps) *RouterLayer {
 		Mux: deps.Router.Mux(),
 		Cfg: deps.Cfg,
 		Routers: []router_types.IRouter{
-			routers.NewPostRouter(deps.Router, deps.Ctrlr),
+			routers.NewPostRouter(deps.Router, deps.Controller),
 		},
 	}
 }

@@ -4,6 +4,7 @@ import (
 	"_/src/api/controller"
 	"_/src/envs"
 	"_/src/mocks/mock_clients"
+	"log"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -11,9 +12,9 @@ import (
 
 var rl = NewRouterLayer(
 	Deps{
-		Router: mock_clients.MockHttpClient{},
-		Ctrlr:  controller.ControllerLayer{},
-		Cfg:    envs.Cfg,
+		Router:     mock_clients.MockHttpClient{},
+		Controller: controller.ControllerLayer{},
+		Cfg:        envs.Cfg,
 	},
 )
 
@@ -22,5 +23,5 @@ func TestNewRouterLayer(t *testing.T) {
 }
 
 func TestServeRestApi(t *testing.T) {
-	// log.Fatalln(rl.ServeRestApi())
+	log.Fatalln(rl.ServeRestApi())
 }
