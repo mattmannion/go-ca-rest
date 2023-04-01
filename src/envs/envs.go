@@ -1,6 +1,7 @@
 package envs
 
 import (
+	"_/src/constants"
 	"fmt"
 
 	"github.com/spf13/viper"
@@ -27,8 +28,8 @@ const (
 	Dev string = "dev"
 )
 
-func InitCfg(path string) {
-	viper.SetConfigFile(path)
+func init() {
+	viper.SetConfigFile(constants.Env)
 
 	err := viper.ReadInConfig()
 	if err != nil {
