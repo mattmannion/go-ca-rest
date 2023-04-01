@@ -8,6 +8,10 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func init() {
+	pg.InitDb()
+}
+
 func TestNewPostController(t *testing.T) {
 	assert.IsType(t, &PostRepo{}, NewPostRepo(pg.Db))
 }

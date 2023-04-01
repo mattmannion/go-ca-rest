@@ -16,7 +16,7 @@ var (
 	Db  *gorm.DB
 )
 
-func init() {
+func InitDb() {
 	// Orm Init
 	Db, err = gorm.Open(postgres.Open(envs.PgConn), &gorm.Config{
 		Logger: logger.Default.LogMode(logger.Silent),

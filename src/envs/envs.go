@@ -1,6 +1,8 @@
 package envs
 
 import (
+	"fmt"
+
 	"github.com/spf13/viper"
 )
 
@@ -11,9 +13,9 @@ type TCfg struct {
 	PgHost   string `mapstructure:"PGHOST"`
 	PgPort   string `mapstructure:"PGPORT"`
 	PgPw     string `mapstructure:"POSTGRES_PASSWORD"`
+	PgUn     string `mapstructure:"POSTGRES_USER"`
 	PgDbMain string `mapstructure:"DB_MAIN"`
 	PgDbTest string `mapstructure:"DB_TEST"`
-	PgUn     string `mapstructure:"POSTGRES_USER"`
 }
 
 var (
@@ -25,12 +27,20 @@ const (
 	Dev string = "dev"
 )
 
-func init() {
-	viper.SetConfigFile("../.env")
+func InitCfg(path string) {
+	viper.SetConfigFile(path)
 
-	viper.ReadInConfig()
+	err := viper.ReadInConfig()
+	if err != nil {
+		fmt.Println("Failed to read config", err)
+		return
+	}
 
-	viper.Unmarshal(&Cfg)
+	err = viper.Unmarshal(&Cfg)
+	if err != nil {
+		fmt.Println("Failed to unmarshal env", err)
+		return
+	}
 
 	PgConn = "postgres://" + Cfg.PgUn + ":" + Cfg.PgPw + "@" + Cfg.PgHost + ":" + Cfg.PgPort + "/" + Cfg.PgDbMain
 }
