@@ -3,6 +3,7 @@
     "d": "nodemon --config nodemon.dev.json",
     "t": "nodemon --config nodemon.test.json",
     "b": "commands/core/gobuild.sh",
-    "r": "commands/core/gobuildrun.sh"
+    "r": "commands/core/gobuildrun.sh",
+    "p": "commands/db/deldb.sh"
   }
 }

@@ -1,7 +1,7 @@
 package pg_repo
 
 import (
-	"_/src/clients/pg/pg_client"
+	"_/src/clients/pg"
 	"_/src/models"
 	"testing"
 
@@ -9,11 +9,11 @@ import (
 )
 
 func TestNewPostController(t *testing.T) {
-	assert.IsType(t, &PostRepo{}, NewPostRepo(pg_client.Db))
+	assert.IsType(t, &PostRepo{}, NewPostRepo(pg.Db))
 }
 
 func TestInsert(t *testing.T) {
-	PostRepo := NewPostRepo(pg_client.Db)
+	PostRepo := NewPostRepo(pg.Db)
 
 	Post := &models.Post{
 		Title: "Test Post",
@@ -30,11 +30,11 @@ func TestInsert(t *testing.T) {
 		Text:  Post.Text,
 	}, result)
 
-	pg_client.ResetAndSeedPgDb()
+	pg.ResetAndSeedPgDb()
 }
 
 func TestGetAll(t *testing.T) {
-	PostRepo := NewPostRepo(pg_client.Db)
+	PostRepo := NewPostRepo(pg.Db)
 
 	Posts, err := PostRepo.GetAll()
 
@@ -42,5 +42,5 @@ func TestGetAll(t *testing.T) {
 
 	assert.IsType(t, []models.Post{}, Posts)
 
-	pg_client.ResetAndSeedPgDb()
+	pg.ResetAndSeedPgDb()
 }

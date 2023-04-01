@@ -1,4 +1,4 @@
-package pg_client
+package pg
 
 import (
 	"_/src/clients/pg/pg_sql"

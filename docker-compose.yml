@@ -1,9 +1,10 @@
 version: '3.8'
+name: golang-ca
 services:
   redis:
     container_name: redis-goapi-ca-rest
     image: redis:6.2-alpine
-    env_file: src/.env
+    env_file: .env
     command: redis-server
     restart: on-failure
     ports:
@@ -12,9 +13,13 @@ services:
   postgres:
     container_name: postgres-goapi-ca-rest
     image: postgres
-    env_file: src/.env
+    env_file: .env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${DB_MAIN}
     ports:
       - 5432:5432
     volumes:
-      - ./pgdata:/var/lib/data
+      - ./commands/db/db.sql:/docker-entrypoint-initdb.d/db.sql
+      - ./pgdata:/var/lib/postgresql/data
     restart: on-failure

@@ -5,14 +5,15 @@ import (
 )
 
 type TCfg struct {
-	Env    string `mapstructure:"ENV"`
-	Host   string `mapstructure:"HOST"`
-	Port   string `mapstructure:"PORT"`
-	PgHost string `mapstructure:"PGHOST"`
-	PgPort string `mapstructure:"PGPORT"`
-	PgPw   string `mapstructure:"POSTGRES_PASSWORD"`
-	PgDb   string `mapstructure:"POSTGRES_DB"`
-	PgUn   string `mapstructure:"POSTGRES_USER"`
+	Env      string `mapstructure:"ENV"`
+	Host     string `mapstructure:"HOST"`
+	Port     string `mapstructure:"PORT"`
+	PgHost   string `mapstructure:"PGHOST"`
+	PgPort   string `mapstructure:"PGPORT"`
+	PgPw     string `mapstructure:"POSTGRES_PASSWORD"`
+	PgDbMain string `mapstructure:"DB_MAIN"`
+	PgDbTest string `mapstructure:"DB_TEST"`
+	PgUn     string `mapstructure:"POSTGRES_USER"`
 }
 
 var (
@@ -25,11 +26,11 @@ const (
 )
 
 func init() {
-	viper.SetConfigFile(".env")
+	viper.SetConfigFile("../.env")
 
 	viper.ReadInConfig()
 
 	viper.Unmarshal(&Cfg)
 
-	PgConn = "postgres://" + Cfg.PgUn + ":" + Cfg.PgPw + "@" + Cfg.PgHost + ":" + Cfg.PgPort + "/" + Cfg.PgDb
+	PgConn = "postgres://" + Cfg.PgUn + ":" + Cfg.PgPw + "@" + Cfg.PgHost + ":" + Cfg.PgPort + "/" + Cfg.PgDbMain
 }
