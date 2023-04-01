@@ -20,6 +20,5 @@ var (
 )
 
 func main() {
-
 	http_client.ListenAndServeClient(Router.CreateRestApi())
 }
